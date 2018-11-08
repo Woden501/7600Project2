@@ -1,0 +1,37 @@
+Project 2
+CS7600
+Colby Snedeker
+
+Team Members:
+Colby Snedeker
+
+OS Developed on: Ubuntu 18.04 64-bit
+B-Prolog version: 8.1
+
+Design:
+	The design I chose for this implementation was effectively a tree traversal solution.  We start our tree at the specified host that we are attempting to determine the ability to compromise.  We then traverse the connected hosts until we reach the public host which signifies the public connections.  During this traversal we also make sure that every host we traverse is in turn compromisable.  Upon a successful traversal and return to the initial compromisable call we have shown that we can compromise the specified host.
+
+How to run:
+1) In a terminal enter: bp
+2) Enter: [work]
+3) To test whether a host is able to be compromised enter: compromisable({host})
+	- ex. compromisable(h1)
+4) The result is output
+	- yes, if the host is able to be compromised
+	- no, if the host is not able to be compromised
+
+Testing:
+	I tested my implementation of this project throughly. As the rules provided make it so that every single node is able to be compromised from the three accessible nodes, H1-3, I added, only while testing, an additional connection, H8.  H8 connected to H6, and had the V2 vulnerability.  As such it was impossible to compromise H8 due to having only a single possibly compromised host to connect to it.  While performing this test the result we got back from the compromisable(h8) call was no which is the result we expected.
+
+Testing results:
+=======================================
+|      call         |     result      |
+=======================================
+| compromisable(h1) |       yes       |
+| compromisable(h2) |       yes       |
+| compromisable(h3) |       yes       |
+| compromisable(h4) |       yes       |
+| compromisable(h5) |       yes       |
+| compromisable(h6) |       yes       |
+| compromisable(h7) |       yes       |
+=======================================
