@@ -19,9 +19,6 @@ connection(public,h2).
 connection(h3,public).
 connection(public,h3).
 
-connection(h9,h8).
-connection(h8,h9).
-
 vulnerability(h1,v1).
 vulnerability(h2,v1).
 vulnerability(h3,v1).
@@ -30,6 +27,9 @@ vulnerability(h5,v1).
 vulnerability(h6,v1).
 vulnerability(h7,v2).
 
-vulnerable(X,Y) :- vulnerability(X,Y).
-connects(X,Y) :- connection(X,Y).
-connects(X,Y) :- connection(Z,Y) , connection(X,Z).
+vulnerable(A,B) :- vulnerability(A,B).
+
+compromisable(A) :- walk(A,public,[]).
+walk(A,B,V) :- vulnerable(A,v1) , connection(A,X) , not(member(X,V)) , (B = X ; walk(X,B,[A|V])).
+walk(A,B,V) :- vulnerable(A,v2) , connection(A,X) , connection(A,Y) , not(X = Y) , not(member(X,V)) , not(member(Y,V)) , walk(X,B,[A|V]) , walk(Y,B,[A|V]).
+
